@@ -6,3 +6,12 @@ javscript. Protein allos us to use javascript as the language with which we gene
 There are small differences in Syntax when issuing commands.
 
 ex. './!include "file"' becomes './!include(file)'.
+
+Installation
+------------
+
+Simply run:
+
+```
+npm install proteinjs -g
+```

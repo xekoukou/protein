@@ -74,7 +74,7 @@ if (process.argv[2] == "--rna") {
 }
 
 var dnastack = [
-    [null, prefix + "/lib/node_modules/protein/rna_prologue.js", 0, prefix + "/lib/node_modules/protein/"]
+    [null, prefix + "/lib/node_modules/proteinjs/rna_prologue.js", 0, prefix + "/lib/node_modules/proteinjs/"]
 ];
 
 if (!rnaopt) {
@@ -87,7 +87,7 @@ if (!rnaopt) {
 rnaln = 1;
 linemap = [];
 
-var PROLOGUE = fs.readFileSync(prefix + "/lib/node_modules/protein/rna_prologue.js", "utf8");
+var PROLOGUE = fs.readFileSync(prefix + "/lib/node_modules/proteinjs/rna_prologue.js", "utf8");
 
 
 

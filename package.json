@@ -1,6 +1,6 @@
 {
-    "name": "protein",
-    "version": "0.1.0",
+    "name": "proteinjs",
+    "version": "0.1.1",
     "description": "Simple code generator",
     "scripts": {
         "postinstall": "sh postinstall.sh"
