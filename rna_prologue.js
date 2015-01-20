@@ -99,8 +99,8 @@ function Ribosome() {
 
             this.text = this.text.slice(top, bottom + 1);
 
-            this.text.forEach(function(line) {
-                line = line.slice(left, right);
+            this.text.forEach(function(line,index,array) {
+                array[index] = line.slice(left, right);
             });
 
             this.width = right - left;
