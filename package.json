@@ -1,0 +1,17 @@
+{
+    "name": "protein",
+    "version": "0.1.0",
+    "description": "Simple code generator",
+    "scripts": {
+        "postinstall": "sh postinstall.sh"
+    },
+    "author": "Apostolis Xekoukoulotakis",
+    "license": "AGPL",
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/xekoukou/meta.git"
+    },
+    "bin": {
+        "protein": "./protein.js"
+    }
+}
