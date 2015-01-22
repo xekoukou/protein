@@ -104,7 +104,7 @@ function Ribosome() {
 
             this.text = this.text.slice(top, bottom + 1);
 
-            this.text.forEach(function(line,index,array) {
+            this.text.forEach(function(line, index, array) {
                 array[index] = line.slice(left, right);
             });
 
@@ -136,7 +136,7 @@ function Ribosome() {
                 return 0;
             } else {
                 var last = this.text[this.text.length - 1];
-                return last.length - (last+"w").trim().length + 1;
+                return last.length - (last + "w").trim().length + 1;
             }
         };
 
@@ -146,6 +146,7 @@ function Ribosome() {
 
     var _outisafile = false;
     var _out = process.stdout;
+    var _append_flag = false;
 
     var _stack = [
         []
@@ -155,12 +156,25 @@ function Ribosome() {
     this.output = _output;
 
     function _output(filename) {
+        _close();
         _outisafile = true;
+        _append_flag = false;
         _out = filename;
     };
 
+    this.append = _append;
+
+    function _append(filename) {
+        _close();
+        _outisafile = true;
+        _append_flag = true;
+        _out = filename;
+    };
+
+    this.stdout = _stdout;
 
     function _stdout() {
+        _close();
         _outisafile = false;
         _out = process.stdout;
     };
@@ -173,9 +187,14 @@ function Ribosome() {
         _tabsize = size;
     };
 
-    this._close = _close;
+    this.close = _close;
 
     function _close() {
+        if (_append_flag == false && typeof _out === "string") {
+            if (_fs.existsSync(_out)) {
+                _fs.unlinkSync(_out);
+            }
+        }
         _stack.last().forEach(function(b) {
             b.write(_out, _outisafile, _tabsize);
         });

@@ -231,9 +231,9 @@ if (!rnaopt) {
 }
 
 if (rnaopt) {
-    process.stdout.write("ribosome._close();\n\n");
+    process.stdout.write("ribosome.close();\n\n");
 } else {
-    fs.appendFileSync(rnafile, "ribosome._close();\n\n");
+    fs.appendFileSync(rnafile, "ribosome.close();\n\n");
 }
 
 if (!rnaopt) {
