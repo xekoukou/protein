@@ -1,6 +1,6 @@
 {
     "name": "proteinjs",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Simple code generator",
     "scripts": {
         "postinstall": "sh scripts/postinstall.sh &&node scripts/test.js",
