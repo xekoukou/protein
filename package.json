@@ -3,7 +3,8 @@
     "version": "0.1.2",
     "description": "Simple code generator",
     "scripts": {
-        "postinstall": "sh postinstall.sh"
+        "postinstall": "sh scripts/postinstall.sh &&node scripts/test.js",
+        "test":" node scripts/test.js"
     },
     "author": "Apostolis Xekoukoulotakis",
     "license": "AGPL",
