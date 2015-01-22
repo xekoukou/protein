@@ -113,7 +113,6 @@ function Ribosome() {
         };
 
         this.write = function(out, outisafile, tabsize) {
-            var self = this;
             this.text.forEach(function(line) {
 
                 if (tabsize > 0) {
@@ -121,7 +120,7 @@ function Ribosome() {
                     var line = Array(Math.floor(ws / tabsize) + 1).join('\t') +
                         Array((ws % tabsize) + 1).join(' ') + (line + 'W').trim().slice(0, -1);
                 }
-                if (self.outisafile == true) {
+                if (outisafile == true) {
                     _fs.appendFileSync(out, line);
                     _fs.appendFileSync(out, '\n');
                 } else {
