@@ -30,9 +30,9 @@ Array.prototype.last = function() {
 
 function Ribosome() {
 
-    var _fs = require('fs');
+    var fs = require('fs');
 
-    function _Block(s) {
+    function Block(s) {
         var self = this;
         this.text = [];
         this.width = 0;
@@ -121,8 +121,8 @@ function Ribosome() {
                         Array((ws % tabsize) + 1).join(' ') + (line + 'W').trim().slice(0, -1);
                 }
                 if (outisafile == true) {
-                    _fs.appendFileSync(out, line);
-                    _fs.appendFileSync(out, '\n');
+                    fs.appendFileSync(out, line);
+                    fs.appendFileSync(out, '\n');
                 } else {
                     out.write(line);
                     out.write('\n');
@@ -142,154 +142,154 @@ function Ribosome() {
 
     }
 
-    var _tabsize = 0;
+    var tabsize = 0;
 
-    var _outisafile = false;
-    var _out = process.stdout;
-    var _append_flag = false;
+    var outisafile = false;
+    var out = process.stdout;
+    var append_flag = false;
 
-    var _stack = [
+    var stack = [
         []
     ];
 
 
-    this.output = _output;
+    this.output = output;
 
-    function _output(filename) {
-        _close();
-        _outisafile = true;
-        _append_flag = false;
-        _out = filename;
+    function output(filename) {
+        close();
+        outisafile = true;
+        append_flag = false;
+        out = filename;
     };
 
-    this.append = _append;
+    this.append = append;
 
-    function _append(filename) {
-        _close();
-        _outisafile = true;
-        _append_flag = true;
-        _out = filename;
+    function append(filename) {
+        close();
+        outisafile = true;
+        append_flag = true;
+        out = filename;
     };
 
-    this.stdout = _stdout;
+    this.stdout = stdout;
 
-    function _stdout() {
-        _close();
-        _outisafile = false;
-        _out = process.stdout;
+    function stdout() {
+        close();
+        outisafile = false;
+        out = process.stdout;
     };
 
 
 
-    this.tabsize = _change_tabsize;
+    this.tabsize = change_tabsize;
 
-    function _change_tabsize(size) {
-        _tabsize = size;
+    function change_tabsize(size) {
+        tabsize = size;
     };
 
-    this.close = _close;
+    this.close = close;
 
-    function _close() {
-        if (_append_flag == false && typeof _out === "string") {
-            if (_fs.existsSync(_out)) {
-                _fs.unlinkSync(_out);
+    function close() {
+        if (append_flag == false && typeof out === "string") {
+            if (fs.existsSync(out)) {
+                fs.unlinkSync(out);
             }
         }
-        _stack.last().forEach(function(b) {
-            b.write(_out, _outisafile, _tabsize);
+        stack.last().forEach(function(b) {
+            b.write(out, outisafile, tabsize);
         });
-        _stack = [
+        stack = [
             []
         ];
     }
 
-    this._add = _add;
+    this.add = add;
 
-    function _add(_line) {
+    function add(line, leval) {
 
-        if (_stack.last().length == 0) {
-            _stack.last().push(new _Block(''));
+        if (stack.last().length == 0) {
+            stack.last().push(new Block(''));
         }
 
-        var _block = _stack.last().last();
+        var block = stack.last().last();
 
-        var _i = 0;
+        var i = 0;
 
         while (true) {
-            var _j = _line.substr(_i).search(/[@&][1-9]?\{/);
-            if (_j == -1) {
-                _j = _line.length;
+            var j = line.substr(i).search(/[@&][1-9]?\{/);
+            if (j == -1) {
+                j = line.length;
             }
 
-            if (_i != _j) {
-                _block.add_right(new _Block(_line.slice(_i, _j)));
+            if (i != j) {
+                block.add_right(new Block(line.slice(i, j)));
             }
-            if (_j == _line.length) {
+            if (j == line.length) {
                 break;
             }
 
-            _i = _j;
-            _j++;
+            i = j;
+            j++;
 
-            var _level = parseInt(_line.charAt(_j), 10);
-            if (isNaN(_level)) {
-                _level = 0;
+            var level = parseInt(line.charAt(j), 10);
+            if (isNaN(level)) {
+                level = 0;
             } else {
-                _j++;
+                j++;
             }
 
-            var _par = 0;
+            var par = 0;
 
             while (true) {
-                if (_line.charAt(_j) == '{') {
-                    _par++;
+                if (line.charAt(j) == '{') {
+                    par++;
                 } else {
-                    if (_line.charAt(_j) == '}') {
-                        _par--;
+                    if (line.charAt(j) == '}') {
+                        par--;
                     }
                 }
 
-                if (_par == 0) {
+                if (par == 0) {
                     break;
                 }
-                _j++;
+                j++;
 
-                if (_j >= _line.length) {
+                if (j >= line.length) {
                     process.stderr.write('SyntaxError: Unmatched {');
                 }
             }
 
-            if (_level > 0) {
-                if (_line.charAt(_i + 1) == '1') {
-                    _block.add_right(new _Block('@' + _line.slice(_i + 2, _j + 1)));
+            if (level > 0) {
+                if (line.charAt(i + 1) == '1') {
+                    block.add_right(new Block('@' + line.slice(i + 2, j + 1)));
                 } else {
-                    _line = _line.slice(0, _i + 1) + (parseInt(_line.charAt(_i + 1)) - 1) + _line.slice(_i + 2);
-                    _block.add_right(new _Block(_line.slice(_i, _j + 1)));
+                    line = line.slice(0, i + 1) + (parseInt(line.charAt(i + 1)) - 1) + line.slice(i + 2);
+                    block.add_right(new Block(line.slice(i, j + 1)));
                 }
-                _i = _j + 1;
+                i = j + 1;
                 continue;
             }
 
             //TODO level can only be zero here.
-            var _expr = _line.slice((_level == 0) ? _i + 2 : _i + 3, _j);
+            var expr = line.slice((level == 0) ? i + 2 : i + 3, j);
 
-            _stack.push([]);
-            var _val = eval(_expr);
-            var _top = _stack.pop();
-            if (_top.length == 0) {
-                _val = new _Block(_val.toString());
+            stack.push([]);
+            var val = leval(expr);
+            var top = stack.pop();
+            if (top.length == 0) {
+                val = new Block(val.toString());
             } else {
-                _val = new _Block('');
-                _top.forEach(function(b) {
-                    _val.add_bottom(b);
+                val = new Block('');
+                top.forEach(function(b) {
+                    val.add_bottom(b);
                 });
             }
 
-            if (_line.charAt(_i) == '@') {
-                _val.trim();
+            if (line.charAt(i) == '@') {
+                val.trim();
             }
-            _block.add_right(_val);
-            _i = _j + 1;
+            block.add_right(val);
+            i = j + 1;
 
         }
 
@@ -297,34 +297,34 @@ function Ribosome() {
 
     }
 
-    this._dot = _dot;
+    this.dot = dot;
 
-    function _dot(line) {
-        _stack.last().push(new _Block(''));
-        _add(line);
+    function dot(line, leval) {
+        stack.last().push(new Block(''));
+        add(line, leval);
     }
 
-    this._align = _align;
+    this.align = align;
 
-    function _align(line) {
+    function align(line, leval) {
         var n;
-        if (_stack.last().length == 0) {
+        if (stack.last().length == 0) {
             n = 0;
         } else {
-            n = _stack.last().last().last_offset();
+            n = stack.last().last().last_offset();
         }
 
-        _stack.last().push(new _Block(''));
+        stack.last().push(new Block(''));
 
-        _add(Array(n + 1).join(' '));
-        _add(line);
+        add(Array(n + 1).join(' '));
+        add(line, leval);
     }
 
 
-    this._rethrow = _rethrow;
+    this.rethrow = rethrow;
 
     //TODO
-    function _rethrow(e, rnafile, linemap) {
+    function rethrow(e, rnafile, linemap) {
         process.stderr.write(e.stack);
         process.exit(1);
     }

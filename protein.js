@@ -139,12 +139,12 @@ while (dnastack.length > 1) {
     var firsttwo = line.trim().slice(0, 2);
 
     if (firsttwo == "/+") {
-        rnawrite("ribosome._add('" + addslashes((line + 'w').trim().slice(2, -1)) + "');\n");
+        rnawrite("ribosome.add('" + addslashes((line + 'w').trim().slice(2, -1)) + "',function(_expr){return eval(_expr);});\n");
         continue;
     }
 
     if (firsttwo == "/=") {
-        rnawrite("ribosome._align('" + addslashes((line + 'w').trim().slice(2, -1)) + "');\n");
+        rnawrite("ribosome.align('" + addslashes((line + 'w').trim().slice(2, -1)) + "',function(_expr){return eval(_expr);});\n");
         continue;
     }
 
@@ -178,13 +178,13 @@ while (dnastack.length > 1) {
             rnawrite("\nif(" + cname + ") {\n")
             rnawrite("    " + cname + " = false;\n")
             rnawrite("} else {\n")
-            rnawrite("    ribosome._add('" + addslashes(separator) + "');\n")
+            rnawrite("    ribosome.add('" + addslashes(separator) + "',function(_expr){return eval(_expr);});\n")
             rnawrite("}\n")
             continue;
 
         }
         if (command == "include") {
-            var filename = line.match(/["'].*["']/)[0].slice(1,-1).trim();
+            var filename = line.match(/["'].*["']/)[0].slice(1, -1).trim();
             filename = path.normalize(path.join(dnastack.last()[3], filename));
             var dirname = path.dirname(filename);
 
@@ -202,7 +202,7 @@ while (dnastack.length > 1) {
 
     }
 
-    rnawrite('ribosome._dot("' + addslashes(line) + '")\n');
+    rnawrite('ribosome.dot("' + addslashes(line) + '",function(_expr){return eval(_expr);})\n');
 
 
 }
@@ -223,7 +223,7 @@ if (!rnaopt) {
 
     fs.appendFileSync(rnafile, "        [null]\n");
     fs.appendFileSync(rnafile, "    ];\n");
-    fs.appendFileSync(rnafile, "ribosome._rethrow(e, '" + addslashes(rnafile) + "', LINEMAP);\n");
+    fs.appendFileSync(rnafile, "ribosome.rethrow(e, '" + addslashes(rnafile) + "', LINEMAP);\n");
 
 
     fs.appendFileSync(rnafile, "}\n");
