@@ -137,7 +137,7 @@ function Ribosome() {
                 return 0;
             } else {
                 var last = this.text[this.text.length - 1];
-                return last.size - ('W' + last).trim() - 1;
+                return last.length - (last+"w").trim().length + 1;
             }
         };
 
@@ -308,6 +308,7 @@ function Ribosome() {
     //TODO
     function _rethrow(e, rnafile, linemap) {
         process.stderr.write(e.stack);
+        process.exit(1);
     }
 
 }
