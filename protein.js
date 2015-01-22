@@ -163,7 +163,7 @@ while (dnastack.length > 1) {
         }
 
         if (command == "separate") {
-            var separator = line.split("(")[1].split(")")[0];
+            var separator = line.match(/["'].*["']/)[0].slice(1, -1);
             var cname = "___separate_" + rnaln + "___";
             rnawrite("var " + cname + " = true;\n");
             line = dnastack.last()[0][0];

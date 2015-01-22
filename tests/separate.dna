@@ -6,16 +6,16 @@ function f1(){
 }
 
 var i;
-./!separate(,)
+./!separate(",")
 for(i=1;i<6;i++){
 ./+@{i}
 }
 .
-./!separate(,)
+./!separate(",")
 for(i=1;i<6;i++){
 }
 .
-./!separate(,)
+./!separate(",")
 for(i=1;i<6;i++){
 ./+@{f1()}
 }
