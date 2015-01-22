@@ -184,7 +184,7 @@ while (dnastack.length > 1) {
 
         }
         if (command == "include") {
-            var filename = line.split("(")[1].split(")")[0].trim();
+            var filename = line.match(/["'].*["']/)[0].slice(1,-1).trim();
             filename = path.normalize(path.join(dnastack.last()[3], filename));
             var dirname = path.dirname(filename);
 
