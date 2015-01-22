@@ -89,7 +89,7 @@ function Ribosome() {
                     if (right == -1) {
                         right = ('W' + line).trim().length - 1;
                     } else {
-                        right = Math.min(right, ('W' + line).trim().length - 1);
+                        right = Math.max(right, ('W' + line).trim().length - 1);
                     }
 
                 }
@@ -219,6 +219,8 @@ function Ribosome() {
             var j = line.substr(i).search(/[@&][1-9]?\{/);
             if (j == -1) {
                 j = line.length;
+            } else {
+                j += i;
             }
 
             if (i != j) {
