@@ -524,6 +524,8 @@ au BufNewFile,BufRead *.dna setf protein
 
 Now you are ready to open a DNA file in vim:
 
+![](images/vim1.png)
+
 What you see is so called "common view" where control language (javascript) and
 generated language (C) are highlighted in such a way as to allow inspection
 of both.
@@ -532,10 +534,14 @@ When in other views, you can switch to common view using F2 key.
 
 Press F3 key to switch to the "Ruby view":
 
+![](images/vim2.png)
+
 Here the control language has its native syntax colouring, while generated
 code is shaded as not to distract from inspecting the control language.
 
 Press F4 key to switch to the "Output view":
+
+![](images/vim3.png)
 
 In this view the control language is shaded and output language is fully
 visible.
@@ -543,4 +549,6 @@ visible.
 However, vim does not know what syntax highlighting to use for the generated
 language. You can instruct it to use particular syntax highlighting algorithm
 using O (capital letter O) command. Pass the name of the language as an
-argument.
+argument:
+
+![](images/vim4.png)
