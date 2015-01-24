@@ -325,9 +325,32 @@ function Ribosome() {
 
     this.rethrow = rethrow;
 
-    //TODO
     function rethrow(e, rnafile, linemap) {
-        process.stderr.write(e.stack);
+
+        var msg = e.stack.split("\n");
+        for (var i = 1; i < msg.length; i++) {
+            if (msg[i].indexOf(".rna:") != -1) {
+                var lindexes = msg[i].split(":");
+                var rrow = parseInt(lindexes[lindexes.length - 1]);
+                var column = parseInt(lindexes[lindexes.length - 2]);
+                var rcolumn = 0;
+                var filename;
+                for (var j = 0; j < linemap.length - 1; j++) {
+                    if (linemap[j][0] <= column) {
+                        rcolumn = column - linemap[j][0] + 1;
+                        filename = linemap[j][1];
+                    } else {
+                        break;
+                    }
+                }
+                msg[i] = msg[i].replace(/\(.*\)$/, "(" + filename + ":" + rcolumn + ":" + rrow + ")");
+            }
+        }
+        msg.forEach(function(item) {
+            process.stderr.write(item);
+            process.stderr.write("\n");
+        });
+
         process.exit(1);
     }
 
