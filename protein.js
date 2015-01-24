@@ -163,7 +163,11 @@ while (dnastack.length > 1) {
         }
 
         if (command == "separate") {
-            var separator = line.match(/["'].*["']/)[0].slice(1, -1);
+            var separator = line.match(/["'].*["']/);
+            if (separator == null) {
+                dnaerror("Bad command syntax");
+            }
+            separator = separator[0].slice(1, -1);
             var cname = "___separate_" + rnaln + "___";
             rnawrite("var " + cname + " = true;\n");
             line = dnastack.last()[0][0];
@@ -184,7 +188,11 @@ while (dnastack.length > 1) {
 
         }
         if (command == "include") {
-            var filename = line.match(/["'].*["']/)[0].slice(1, -1).trim();
+            var filename = line.match(/["'].*["']/);
+            if (filename == null) {
+                dnaerror("Bad command syntax");
+            }
+            filename = filename[0].slice(1, -1).trim();
             filename = path.normalize(path.join(dnastack.last()[3], filename));
             var dirname = path.dirname(filename);
 
