@@ -1,6 +1,10 @@
 PROTEIN
 =======
 
+### This project has been merged with ribosome.
+
+
+
 A simple generic code generation tool.
 
 This tool is a translation of [ribosome](https://github.com/sustrik/ribosome) into javascript.
