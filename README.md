@@ -25,14 +25,14 @@ Check ribosome for documentation. Here we will describe the extensions.
 ./dots(n)
 ```
 
-Adds n level of dots. Ribosome will need to execute n times for the code to execute.
+Adds n level of dots. Protein will need to execute n times for the code to execute.
 Similarly, expressions of this form:
 ```
 .@m{expression}
 .&m{expression}
 ```
 
-will be executed in m + n + 1 ribosome executions.
+will be executed in m + n + 1 protein executions.
 
 2. The exec command.
 ```
