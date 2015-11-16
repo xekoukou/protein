@@ -18,4 +18,25 @@ node test.js
 
 Check ribosome for documentation. Here we will describe the extensions.
 
+## Additional Commands
 
+1. The dots command.
+```
+./dots(n)
+```
+
+Adds n level of dots. Ribosome will need to execute n times for the code to execute.
+Similarly, expressions of this form:
+```
+.@m{expression}
+.&m{expression}
+```
+
+will be executed in m + n ribosome executions.
+
+2. The exec command.
+```
+./exec("path_to_dna",[args1],[args2])
+```
+
+Executes the dna file n times with the arguments passed in the arrays.

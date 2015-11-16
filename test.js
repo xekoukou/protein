@@ -12,15 +12,15 @@ files.forEach(function(file_name, index, files) {
     var stat = fs.statSync(cpath + "/" + file_name);
 
     if (stat.isFile()) {
-        if (path.extname(file_name) == ".dna") {
-            exec("protein " + cpath + "/" + file_name, function(error, stdout, stderr) {
+        if (path.extname(file_name) == ".check") {
+            exec("protein " + cpath + "/" + file_name.slice(0,-6) + ".js.dna" , function(error, stdout, stderr) {
                 var result = stdout;
-                var check = fs.readFileSync(cpath + "/" + file_name.substring(0, file_name.length - 7) + ".check");
+                var check = fs.readFileSync(cpath + "/" + file_name);
                 if (check != result) {
-                    process.stdout.write(file_name.substring(0, file_name.length - 7) + ' test FAILED\n');
+                    process.stdout.write(file_name.substring(0, file_name.length - 6) + ' test FAILED\n');
                     nFailed++;
                 } else {
-                    process.stdout.write(file_name.substring(0, file_name.length - 7) + ' test PASSED\n');
+                    process.stdout.write(file_name.substring(0, file_name.length - 6) + ' test PASSED\n');
                     nPassed++;
                 }
             });

@@ -119,6 +119,7 @@ try {
 
 var dotbase = 0;
 var removed_ndots = -1;
+var exec_files_to_clean = [];
 dnastack.push([file.split(eol), dnafile, 0, dirname]);
 
 while (dnastack.length > 1) {
@@ -276,6 +277,7 @@ while (dnastack.length > 1) {
                 } catch (e) {
                     dnaerror("File doesn't exist.");
                 }
+                exec_files_to_clean.push(lfilename);
                 dnastack.push([file.split(eol), lfilename, 0, dirname]);
                 continue;
 	    }
@@ -322,5 +324,10 @@ if (!rnaopt) {
         process.stdout.write(stderr);
         fs.unlinkSync(rnafile);
     });
+
 }
 
+//Clean DNA files that are created from the Exec command.
+exec_files_to_clean.forEach(function(file_path){
+    fs.unlinkSync(file_path);
+});
