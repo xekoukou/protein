@@ -32,7 +32,7 @@ Similarly, expressions of this form:
 .&m{expression}
 ```
 
-will be executed in m + n ribosome executions.
+will be executed in m + n + 1 ribosome executions.
 
 2. The exec command.
 ```
