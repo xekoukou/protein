@@ -1,9 +1,10 @@
+
 /*
 
   Copyright (c) 2014-2015 Contributors as noted in AUTHORS file.
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files (the \"Software\"),
+  of this software and associated documentation files (the "Software"),
   to deal in the Software without restriction, including without limitation
   the rights to use, copy, modify, merge, publish, distribute, sublicense,
   and/or sell copies of the Software, and to permit persons to whom
@@ -12,7 +13,7 @@
   The above copyright notice and this permission notice shall be included
   in all copies or substantial portions of the Software.
 
-  THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
   THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -37,7 +38,7 @@ function Ribosome() {
         this.width = 0;
 
         if (s != null) {
-            this.text = s.split('\\n');
+            this.text = s.split('\n');
             this.text.forEach(function(line) {
                 self.width = Math.max(self.width, line.length);
             });
@@ -115,15 +116,15 @@ function Ribosome() {
 
                 if (tabsize > 0) {
                     var ws = line.length - (line + 'w').trim().length + 1;
-                    var line = Array(Math.floor(ws / tabsize) + 1).join('\t') +
+                    var line = Array(Math.floor(ws / tabsize) + 1).join('	') +
                         Array((ws % tabsize) + 1).join(' ') + (line + 'W').trim().slice(0, -1);
                 }
                 if (outisafile == true) {
                     fs.appendFileSync(out, line);
-                    fs.appendFileSync(out, '\\n');
+                    fs.appendFileSync(out, '\n');
                 } else {
                     out.write(line);
-                    out.write('\\n');
+                    out.write('\n');
                 }
             });
 
@@ -134,7 +135,7 @@ function Ribosome() {
                 return 0;
             } else {
                 var last = this.text[this.text.length - 1];
-                return last.length - (last + \"w\").trim().length + 1;
+                return last.length - (last + "w").trim().length + 1;
             }
         };
 
@@ -185,7 +186,7 @@ function Ribosome() {
     this.close = close;
 
     function close() {
-        if (append_flag == false && typeof out === \"string\") {
+        if (append_flag == false && typeof out === "string") {
             if (fs.existsSync(out)) {
                 fs.unlinkSync(out);
             }
@@ -220,7 +221,7 @@ function Ribosome() {
         var i = 0;
 
         while (true) {
-            var j = line.substr(i).search(/[@&][1-9]?\\{/);
+            var j = line.substr(i).search(/[@&][1-9]?\{/);
             if (j == -1) {
                 j = line.length;
             } else {
@@ -329,11 +330,11 @@ function Ribosome() {
     function rethrow(e, linemap) {
 
         var new_msg=[];
-        var msg = e.stack.split(\"\\n\");
+        var msg = e.stack.split("\n");
         new_msg.push(msg[0]);
         for (var i = 1; i < msg.length; i++) {
-            if (msg[i].indexOf(\".rna:\") != -1) {
-                var lindexes = msg[i].split(\".rna:\")[1].split(\":\");
+            if (msg[i].indexOf(".rna:") != -1) {
+                var lindexes = msg[i].split(".rna:")[1].split(":");
                 var rrow = parseInt(lindexes[1]);
                 var rna_column = parseInt(lindexes[0]);
                 var rcolumn = 0;
@@ -347,7 +348,7 @@ function Ribosome() {
                 }
                 j--
                 rcolumn = rna_column - linemap[j][0] + linemap[j][2];
-                var new_line = msg[i].replace(/\\(.*\\)$/, \"(\" + filename + \":\" + rcolumn + \":\" + rrow + \")\");
+                var new_line = msg[i].replace(/\(.*\)$/, "(" + filename + ":" + rcolumn + ":" + rrow + ")");
 		if (new_line != msg[i]) {
 		    new_msg.push(new_line);
 		}
@@ -355,7 +356,7 @@ function Ribosome() {
         }
         new_msg.forEach(function(item) {
             process.stderr.write(item);
-            process.stderr.write(\"\\n\");
+            process.stderr.write("\n");
         });
 
         process.exit(1);
@@ -365,9 +366,9 @@ function Ribosome() {
 
 var ribosome = new Ribosome();
 
-var at = \"@\";
-var amp = \"&\";
-var slash = \"/\";
+var at = "@";
+var amp = "&";
+var slash = "/";
 
 ///////////////////////////////////////////////////////////////////////
 //
@@ -376,3 +377,9 @@ var slash = \"/\";
 //  generated from the DNA file.
 //
 ///////////////////////////////////////////////////////////////////////
+
+
+
+//-------------Begin-------------
+
+try {

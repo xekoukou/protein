@@ -1,0 +1,2 @@
+
+..var word = "@1{process.argv[2]}";

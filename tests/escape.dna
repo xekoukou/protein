@@ -1,5 +1,0 @@
-// Test escape funcions.
-
-..@{at()}{}
-..@{amp()}{}
-..@{slash()}+abc

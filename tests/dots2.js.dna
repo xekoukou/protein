@@ -1,0 +1,36 @@
+./!dots(1)
+
+var var3 = "var from level three";
+for(var i = 0; i<3; i++) {
+.Third level
+.@{var3}
+}
+
+./!dots(-1)
+
+var var2 = "var from level two";
+for(var i = 0; i<3; i++) {
+..Second level
+..@{var2}
+..@1{var3}
+}
+
+./!dots(1)
+
+for(var i = 0; i<3; i++) {
+.Third level
+}
+
+./!dots(-1)
+..First level
+..var from level one
+..@{var2}
+..@1{var3}
+..First level
+..var from level one
+..@{var2}
+..@1{var3}
+..First level
+..var from level one
+..@{var2}
+..@1{var3}
