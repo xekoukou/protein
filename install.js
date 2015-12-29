@@ -7,6 +7,6 @@ var protein = fs.readFileSync('./protein.js');
 
 var program = '#!/usr/bin/env node\n\nvar PROLOGUE = "\\n\\\n' + prologue + '\\n\\\n"' + protein;
 
-fs.writeFileSync('/usr/local/bin/protein',program);
+fs.writeFileSync('/usr/local/bin/protein',program,{"mode":'0755'});
 
 

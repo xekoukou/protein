@@ -36,7 +36,7 @@ function addslashes(str) {
 
 
 function usage() {
-    process.stderr.write("usage: ribosome.js [options] <dna-file> <args-passed-to-dna-script>\n");
+    process.stderr.write("usage: protein [options] <dna-file> <args-passed-to-dna-script>\n");
     process.exit(1);
 }
 
@@ -62,7 +62,7 @@ if (process.argv.length < 3 || process.argv[2] == "-h" ||
     usage();
 }
 if (process.argv[2] == "-v" || process.argv[2] == "--version") {
-    process.stderr.write("ribosome code generator, version 1.16\n");
+    process.stderr.write("protein code generator, version 1.16\n");
     process.exit(1);
 }
 
@@ -82,7 +82,7 @@ if (process.argv[2] == "--rna") {
 }
 
 var dnastack = [
-    [null, "ribosome.js", 27, ""]
+    [null, "protein", 27, ""]
 ];
 
 if (!rnaopt) {
@@ -262,7 +262,7 @@ while (dnastack.length > 1) {
                     var largs = args[i].slice(1,-1).split(",");
                     
 		    try {
-                        execSync("ribosome.js " + lfilename + " " +  largs.join(" ") + " 1> " + "./" +filename + ".result."+i+".js.dna");
+                        execSync("protein " + lfilename + " " +  largs.join(" ") + " 1> " + "./" +filename + ".result."+i+".js.dna");
 		    } catch(e) {
                         process.exit(-1);
 		    }
